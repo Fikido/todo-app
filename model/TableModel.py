@@ -1,3 +1,4 @@
+from PyQt5 import QtCore
 from PyQt5.QtCore import *
 
 
@@ -28,3 +29,10 @@ class TableModel(QAbstractTableModel):
             return f'{self.datatable[i][j]}'
         else:
             return QVariant()
+
+    def headerData(self, section, orientation=Qt.Horizontal, role=Qt.DisplayRole):
+        if role == QtCore.Qt.DisplayRole:
+            if orientation == QtCore.Qt.Horizontal:
+                return ["Id", "Task", "Date", "Done", "Delete"][section]
+            if orientation == QtCore.Qt.Vertical:
+                return section+1

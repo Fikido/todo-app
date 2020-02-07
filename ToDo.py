@@ -5,6 +5,7 @@ import sys
 from database.Db import *
 import model.TableModel as tm
 
+
 class ToDo(QWidget, Gui):
     def __init__(self, parent=None):
         super(ToDo, self).__init__(parent)
@@ -29,9 +30,10 @@ class ToDo(QWidget, Gui):
         model.layoutChanged.emit()
 
         self.refreshView()
-        QMessageBox.information(self,'Success', f'Hello, {log}!', QMessageBox.Ok)
+        QMessageBox.information(self, 'Success', f'Hello, {log}!', QMessageBox.Ok)
 
     def refreshView(self):
+        model.headerData(4)
         self.view.setModel(model)
         self.view.resizeColumnsToContents()
         self.view.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
@@ -42,7 +44,6 @@ class ToDo(QWidget, Gui):
 
     def add(self):
         pass
-
 
 
 if __name__ == '__main__':
