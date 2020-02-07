@@ -8,6 +8,7 @@ class LoginDialog(QDialog):
         self.formGroupBox = QGroupBox("Login form")
         self.createLoginGroupBox()
 
+        # Dialog buttons
         self.buttonBox = QDialogButtonBox()
         self.buttonBox.addButton("Log in", QDialogButtonBox.AcceptRole)
         self.buttonBox.addButton("Back", QDialogButtonBox.RejectRole)
@@ -22,6 +23,7 @@ class LoginDialog(QDialog):
         self.setWindowTitle('Login form')
         self.setFixedSize(300,150)
 
+    # Username and password input fields
     def createLoginGroupBox(self):
         self.password = QLineEdit()
         self.login = QLineEdit()
@@ -34,12 +36,15 @@ class LoginDialog(QDialog):
         self.formGroupBox.setLayout(layout)
         self.setModal(True)
 
+    # Return Login
     def getLogin(self):
         return self.login.text()
 
+    # Return Password
     def getPassword(self):
         return self.password.text()
 
+    # Create instance and send tuple of login and password
     @staticmethod
     def getLoginAndPassword(parent=None):
         dialog = LoginDialog(parent)
