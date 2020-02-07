@@ -14,6 +14,7 @@ class ToDo(QWidget, Gui):
         # Signals
         self.loginButton.clicked.connect(self.login)
         self.exitButton.clicked.connect(self.end)
+        self.addButton.clicked.connect(self.add)
 
     # Unpack login and password from static method and checks it
     def login(self):
@@ -21,11 +22,11 @@ class ToDo(QWidget, Gui):
         if not log or not passwd:
             QMessageBox.warning(self, 'Error', 'Empty username or password!', QMessageBox.Ok)
             return
-        user = getLogFromDb(log, passwd)
-        if user is None:
+        self.user = getLogFromDb(log, passwd)
+        if self.user is None:
             QMessageBox.warning(self, 'Error', 'Wrong username or password', QMessageBox.Ok)
             return
-        tasks = readData(user)
+        tasks = readData(self.user)
         model.update(tasks)
         model.layoutChanged.emit()
 
@@ -43,7 +44,14 @@ class ToDo(QWidget, Gui):
         self.close()
 
     def add(self):
-        pass
+        task, ok = QInputDialog.getMultiLineText(self, 'Task', 'Add new task')
+        if not ok or not task.strip():
+            QMessageBox.warning(self, 'Error', 'Message can not be empty', QMessageBox.Ok)
+            return
+        addTask(task,self.user.id)
+        model.update(readData(self.user))
+        model.layoutChanged.emit()
+        self.refreshView()
 
 
 if __name__ == '__main__':

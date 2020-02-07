@@ -44,12 +44,21 @@ def readData(user):
         tasks.append([t.id, t.text, t.date, t.done, False])
     return tasks
 
+def addTask(text, user_id):
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    newTask = Task()
+    newTask.text = text
+    newTask.user_id = user_id
+    session.add(newTask)
+    session.commit()
+    session.close()
 
 # User Table
 class User(Base):
     __tablename__ = 'users'
 
-    id = Column('id', Integer, primary_key=True)
+    id = Column('id', Integer, primary_key=True, autoincrement=True, )
     username = Column('username', String(20), unique=True, nullable=False)
     password = Column('password', String(20), unique=False, nullable=False)
     tasks = relationship("Task")
@@ -57,12 +66,11 @@ class User(Base):
 # Task table
 class Task(Base):
     __tablename__ = 'tasks'
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     text = Column('task', Text(), nullable=False)
     date = Column('date', DateTime, default=datetime.now)
     done = Column('done', Boolean, default=False)
     user_id = Column(Integer, ForeignKey('users.id'))
-
 
 """
 Session = sessionmaker(bind=engine)
