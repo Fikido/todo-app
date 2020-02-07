@@ -7,5 +7,5 @@ Todo app
 - ~~Connect MySql with SQLAlchemy ORM~~
 - ~~Model-view design pattern~~
 - ~~Add new task~~
+- ~Register new account~
 - Add checkboxes to done and delete fields
-- Register new account

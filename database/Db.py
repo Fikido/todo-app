@@ -8,13 +8,14 @@ from sqlalchemy.orm import *
 Base = declarative_base()
 engine = create_engine('mysql+pymysql://test:password@127.0.0.1/toDoDb')
 
+
 # Connection to db from pure mysql to create database if not exists
 def connect():
     conn = None
     try:
         conn = mysql.connector.connect(host='localhost',
-                                        user='test',
-                                        password='password')
+                                       user='test',
+                                       password='password')
         if conn.is_connected():
             print('Connected to MySQL database')
 
@@ -26,6 +27,7 @@ def connect():
     conn.close()
     Base.metadata.create_all(bind=engine)
 
+
 # Check login and password in database then return instance
 def getLogFromDb(usr, passwd):
     Session = sessionmaker(bind=engine)
@@ -33,6 +35,7 @@ def getLogFromDb(usr, passwd):
     user = session.query(User).filter(User.username == usr and User.password == passwd).first()
     session.close()
     return user
+
 
 def readData(user):
     Session = sessionmaker(bind=engine)
@@ -44,6 +47,7 @@ def readData(user):
         tasks.append([t.id, t.text, t.date, t.done, False])
     return tasks
 
+
 def addTask(text, user_id):
     Session = sessionmaker(bind=engine)
     session = Session()
@@ -54,14 +58,26 @@ def addTask(text, user_id):
     session.commit()
     session.close()
 
+
+def addNewUser(username, password):
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    newUser = User()
+    newUser.username = username
+    newUser.password = password
+    session.add(newUser)
+    session.commit()
+    session.close()
+
+
 # User Table
 class User(Base):
     __tablename__ = 'users'
-
     id = Column('id', Integer, primary_key=True, autoincrement=True, )
     username = Column('username', String(20), unique=True, nullable=False)
     password = Column('password', String(20), unique=False, nullable=False)
     tasks = relationship("Task")
+
 
 # Task table
 class Task(Base):
@@ -71,20 +87,3 @@ class Task(Base):
     date = Column('date', DateTime, default=datetime.now)
     done = Column('done', Boolean, default=False)
     user_id = Column(Integer, ForeignKey('users.id'))
-
-"""
-Session = sessionmaker(bind=engine)
-session = Session()
-task = Task()
-user = User()
-user.id = 2
-user.username = 'test2'
-user.password = 'test2'
-task.id = 3
-task.text = "task2"
-task.user_id=(user.id)
-session.add(user)
-session.add(task)
-session.commit()
-session.close()
-"""

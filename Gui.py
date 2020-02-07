@@ -10,13 +10,15 @@ class Gui:
         # Buttons
         self.loginButton = QPushButton("Login")
         self.exitButton = QPushButton("Exit")
-        self.addButton = QPushButton("Add")
+        self.addNewTaskButton = QPushButton("Add")
+        self.addNewUserButton = QPushButton("Register")
 
         # Layout
         layoutOutside = QVBoxLayout(self)
         layoutOutside.addWidget(self.view)
+        layoutOutside.addWidget(self.addNewTaskButton)
         layoutOutside.addWidget(self.loginButton)
-        layoutOutside.addWidget(self.addButton)
+        layoutOutside.addWidget(self.addNewUserButton)
         layoutOutside.addWidget(self.exitButton)
 
         # Center
