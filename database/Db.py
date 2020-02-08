@@ -36,7 +36,7 @@ def getLogFromDb(usr, passwd):
     session.close()
     return user
 
-
+# Read data about tasks
 def readData(user):
     Session = sessionmaker(bind=engine)
     session = Session()
@@ -47,7 +47,7 @@ def readData(user):
         tasks.append([t.id, t.text, t.date, t.done, False])
     return tasks
 
-
+# Add new task
 def addTask(text, user_id):
     Session = sessionmaker(bind=engine)
     session = Session()
@@ -58,7 +58,7 @@ def addTask(text, user_id):
     session.commit()
     session.close()
 
-
+# Add new user
 def addNewUser(username, password):
     Session = sessionmaker(bind=engine)
     session = Session()

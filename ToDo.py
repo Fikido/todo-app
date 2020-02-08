@@ -1,11 +1,8 @@
-from PyQt5.QtWidgets import *
-from Gui import Gui
-from LoginDialog import LoginDialog
-import sys
+from gui.Gui import Gui
+from gui.LoginDialog import LoginDialog
 from database.Db import *
 import model.TableModel as tm
-from RegisterDialog import *
-
+from gui.RegisterDialog import *
 
 
 class ToDo(QWidget, Gui):
@@ -37,6 +34,7 @@ class ToDo(QWidget, Gui):
         self.refreshView()
         QMessageBox.information(self, 'Success', f'Hello, {log}!', QMessageBox.Ok)
 
+    # Refresh table
     def refreshView(self):
         model.headerData(4)
         self.view.setModel(model)
@@ -47,6 +45,7 @@ class ToDo(QWidget, Gui):
     def end(self):
         self.close()
 
+    # Add new task dialog
     def addTask(self):
         task, ok = QInputDialog.getMultiLineText(self, 'Task', 'Add new task')
         if not ok or not task.strip():
@@ -55,11 +54,12 @@ class ToDo(QWidget, Gui):
         if self.user is None:
             QMessageBox.warning(self, 'Error', 'You must register first', QMessageBox.Ok)
             return
-        addTask(task,self.user.id)
+        addTask(task, self.user.id)
         model.update(readData(self.user))
         model.layoutChanged.emit()
         self.refreshView()
 
+    # Add new user dialog
     def addUser(self):
         log, passwd = RegisterDialog.getRegiterLoginAndPassword(self) or (None, None)
         if not log or not passwd:
@@ -73,6 +73,7 @@ class ToDo(QWidget, Gui):
         model.layoutChanged.emit()
         self.refreshView()
         QMessageBox.information(self, 'Success', f'Account created {log}!', QMessageBox.Ok)
+
 
 if __name__ == '__main__':
     app = QApplication([])

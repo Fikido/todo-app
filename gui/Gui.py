@@ -2,16 +2,16 @@ from PyQt5.QtWidgets import *
 
 
 class Gui:
+    def __init__(self):
+        self.addNewUserButton = QPushButton("Register")
+        self.addNewTaskButton = QPushButton("Add")
+        self.exitButton = QPushButton("Exit")
+        self.loginButton = QPushButton("Login")
+        self.view = QTableView()
+
     def setupGui(self, Widget):
         Widget.setObjectName("Widget")
         height, width = (500, 600)
-        self.view = QTableView()
-
-        # Buttons
-        self.loginButton = QPushButton("Login")
-        self.exitButton = QPushButton("Exit")
-        self.addNewTaskButton = QPushButton("Add")
-        self.addNewUserButton = QPushButton("Register")
 
         # Layout
         layoutOutside = QVBoxLayout(self)
