@@ -23,10 +23,17 @@ class TableModel(QAbstractTableModel):
         return 0
 
     def data(self, index, role=Qt.DisplayRole):
+        i = index.row()
+        j = index.column()
         if role == Qt.DisplayRole:
-            i = index.row()
-            j = index.column()
             return f'{self.datatable[i][j]}'
+        elif role == Qt.CheckStateRole and (j == 3 or j == 4):
+            if self.datatable[i][j]:
+                return Qt.Checked
+            else:
+                return Qt.Unchecked
+        elif role == Qt.EditRole and j == 1:
+            return self.datatable[i][j]
         else:
             return QVariant()
 
