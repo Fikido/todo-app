@@ -16,16 +16,15 @@ MySQL
 ```
 sudo apt-get install mysql-server
 ```
-<br></br>
 PyQt5
 ```
 pip install PyQt5
 ```
-<br></br>
 SQLAlchemy
 ```
 pip install SQLAlchemy
 ```
+And replace login and password to your MySQL database
 
 
 
