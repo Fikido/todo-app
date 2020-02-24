@@ -69,6 +69,20 @@ def addNewUser(username, password):
     session.commit()
     session.close()
 
+def saveTasks(tasks):
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    for i, j in enumerate(tasks):
+        task = session.query(Task).filter(Task.id == j[0]).one()
+        if j[4]:
+            obj = session.query(Task).filter_by(id=j[0]).one()
+            session.delete(obj)
+            del task
+        else:
+            task.text = j[1]
+            task.done= j[3]
+        session.commit()
+    session.close()
 
 # User Table
 class User(Base):

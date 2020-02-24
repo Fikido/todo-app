@@ -22,6 +22,27 @@ class TableModel(QAbstractTableModel):
             return len(self.datatable[0])
         return 0
 
+    def flags(self, index):
+        flags = super(TableModel, self).flags(index)
+        j = index.column()
+        if j == 1:
+            flags |= Qt.ItemIsEditable
+        elif j == 3 or j == 4:
+            flags |= Qt.ItemIsUserCheckable
+        return flags
+
+    def setData(self, index: QModelIndex, value, role=Qt.DisplayRole):
+        i = index.row()
+        j = index.column()
+        if role == Qt.EditRole and j == 1:
+            self.datatable[i][j] = value
+        elif role == Qt.CheckStateRole and (j==3 or j==4):
+            if value:
+                self.datatable[i][j] = True
+            else:
+                self.datatable[i][j] = False
+        return True
+
     def data(self, index, role=Qt.DisplayRole):
         i = index.row()
         j = index.column()

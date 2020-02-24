@@ -15,6 +15,10 @@ class ToDo(QWidget, Gui):
         self.exitButton.clicked.connect(self.end)
         self.addNewTaskButton.clicked.connect(self.addTask)
         self.addNewUserButton.clicked.connect(self.addUser)
+        self.saveButton.clicked.connect(self.save)
+
+        self.addNewTaskButton.setEnabled(False)
+        self.saveButton.setEnabled(False)
 
     # Unpack login and password from static method and checks it
     def login(self):
@@ -33,6 +37,8 @@ class ToDo(QWidget, Gui):
 
         self.refreshView()
         QMessageBox.information(self, 'Success', f'Hello, {log}!', QMessageBox.Ok)
+        self.addNewTaskButton.setEnabled(True)
+        self.saveButton.setEnabled(True)
 
     # Refresh table
     def refreshView(self):
@@ -73,6 +79,13 @@ class ToDo(QWidget, Gui):
         model.layoutChanged.emit()
         self.refreshView()
         QMessageBox.information(self, 'Success', f'Account created {log}!', QMessageBox.Ok)
+
+    def save(self):
+        saveTasks(model.datatable)
+        model.layoutChanged.emit()
+        tasks = readData(self.user)
+        model.update(tasks)
+        self.refreshView()
 
 
 if __name__ == '__main__':

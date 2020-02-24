@@ -5,6 +5,7 @@ class Gui:
     def __init__(self):
         self.addNewUserButton = QPushButton("Register")
         self.addNewTaskButton = QPushButton("Add")
+        self.saveButton = QPushButton("Save")
         self.exitButton = QPushButton("Exit")
         self.loginButton = QPushButton("Login")
         self.view = QTableView()
@@ -17,6 +18,7 @@ class Gui:
         layoutOutside = QVBoxLayout(self)
         layoutOutside.addWidget(self.view)
         layoutOutside.addWidget(self.addNewTaskButton)
+        layoutOutside.addWidget(self.saveButton)
         layoutOutside.addWidget(self.loginButton)
         layoutOutside.addWidget(self.addNewUserButton)
         layoutOutside.addWidget(self.exitButton)

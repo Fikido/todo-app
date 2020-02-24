@@ -6,8 +6,8 @@ I made this app to learn how to connect and manage MySQL database using SQLAlche
 - ~~Connect MySql with SQLAlchemy ORM~~
 - ~~Model-view design pattern~~
 - ~~Add new task~~
-- ~Register new account~
-- Add checkboxes to done and delete fields
+- ~~Register new account~~
+- ~~Add checkboxes to done and delete fields~~
 
 ### Prerequisites
 You need to install :
